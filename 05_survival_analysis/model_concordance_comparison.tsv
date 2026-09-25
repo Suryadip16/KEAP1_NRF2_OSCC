@@ -1,0 +1,6 @@
+Model	Level	C_index	C_se
+Baseline Clinical Covariates	Baseline	0.6230834352365723	0.03671927305214079
+Clinical + NRF2 Optimal Cutpoint	Level 1: Pathway (Opt)	0.6404853729658546	0.03469879634915
+Clinical + NRF2 Continuous Score	Level 1: Pathway (Cont)	0.6241181450475026	0.036304694389913204
+Clinical + NQO1 (Level 2 Canonical)	Level 2: Canonical	0.6348415012698712	0.03528675045209937
+Clinical + CACNA1A (Level 3 Top DEG)	Level 3: DEG	0.6739723450286896	0.03335172296136571

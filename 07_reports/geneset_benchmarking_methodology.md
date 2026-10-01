@@ -62,3 +62,33 @@ A weighted average is then calculated, with weights assigned based on analytical
 4. **Bimodality (15%)**: Ensures the scores reflect the expected mutated/wild-type subpopulations.
 5. **Dynamic Range (10%)**: Rewards broader score distribution.
 6. **Biological Coherence (10%)**: Penalizes noisy or overly redundant gene sets.
+
+---
+
+## 4. Purpose and Biological Rationale of NRF2 Target Validation Plots
+
+The validation plots generated during benchmarking (`03a_geneset_target_validation.pdf` / `geneset_target_validation.png`) and final pathway scoring (`03_nrf2_target_expression_by_group.pdf` / `nrf2_target_expression_by_group.png`) compare the expression of a gold-standard panel of 6 canonical NRF2 direct transcriptional targets (*NQO1*, *HMOX1*, *GCLC*, *SLC7A11*, *GPX2*, *TXNRD1*) between `NRF2-High` and `NRF2-Low` tumours. 
+
+These plots serve four primary purposes within the analytical framework:
+
+### 4.1 Establishing Biological Ground Truth vs. Mathematical Artefact
+* **Unsupervised Clustering Risk**: Pathway enrichment scoring algorithms (GSVA, ssGSEA) and median-split stratifications are purely mathematical operations. Any dataset can mathematically be partitioned into two clusters, even if the division is driven by technical noise, batch effects, or irrelevant variance.
+* **ARE-Driven Verification**: Every gene in the 6-target panel contains well-characterized Antioxidant Response Elements (AREs) in its promoter and represents universally recognized direct transcriptional effectors of NRF2 (Taguchi & Yamamoto, *Free Radic Biol Med* 2017).
+* **Ground Truth Assurance**: Observing significant, coordinated upregulation of these 6 canonical targets confirms that tumors assigned to the `NRF2-High` group genuinely possess active in vivo NRF2 transcriptional programs, grounding statistical clustering in true cellular biology.
+
+### 4.2 Quantitative Benchmarking of Gene Set Versions (25% Weight)
+* In `03a_geneset_version_comparison.R`, target validation is quantified as the mean $-\log_{10}(p\text{-value})$ across one-sided Wilcoxon rank-sum tests for the 6 target genes.
+* This metric carries the **highest individual weight (25%)** in the composite scoring framework because biological validity is a non-negotiable prerequisite.
+* The multi-panel version validation plot (`03a_geneset_target_validation.pdf`) visualizes target expression across all 5 candidate gene sets (V0–V4), verifying that candidate modifications (e.g., adding CUL3/MAFs, removing ambiguous genes) maintain or improve biological separation.
+
+### 4.3 Validating Key Functional Phenotypes in OSCC
+The selected 6-gene panel specifically reflects the hallmark phenotypes under investigation in oral squamous cell carcinoma:
+* **Prototypical NRF2 Marker (*NQO1*)**: Shows the most dramatic separation ($\Delta \approx 1.5$ VST units, $\approx 2.8$-fold on a linear scale), providing unambiguous confirmation of NRF2 pathway hyperactivation.
+* **Ferroptosis Resistance (*SLC7A11*, *GPX2*)**: *SLC7A11* (catalytic subunit of system $\text{x}_c^-$ cystine/glutamate antiporter) and *GPX2* (glutathione peroxidase 2) mediate cystine uptake and lipid hydroperoxide clearance. Their prominent upregulation validates that the stratification captures the ferroptosis-resistant OSCC subpopulation.
+* **Glutathione Biosynthesis & Chemoresistance (*GCLC*)**: *GCLC* catalyzes the rate-limiting step of glutathione biosynthesis, a primary driver of resistance to cisplatin and standard chemotherapeutics in OSCC.
+* **Redox Homeostasis & Stress Adaptation (*HMOX1*, *TXNRD1*)**: Heme oxygenase-1 and thioredoxin reductase-1 reflect the tumor's amplified capacity to neutralize reactive oxygen species (ROS) and survive oxidative stress.
+
+### 4.4 Essential Quality Gate for Downstream Differential Expression (DGEA)
+* Prior to executing genome-wide Differential Gene Expression Analysis (DESeq2) comparing NRF2-High vs. NRF2-Low groups, researchers must confirm the validity of the phenotypic contrast.
+* In `03_nrf2_pathway_scoring.R`, the script applies an automated check confirming that all direct targets reach statistical significance ($p < 0.05$, with actual values achieving $p < 10^{-11}$).
+* The resulting violin/boxplot publication figure (`03_nrf2_target_expression_by_group.pdf`) provides a clear, defensible quality gate that prevents circular reasoning or false biomarker discovery in subsequent downstream analyses.

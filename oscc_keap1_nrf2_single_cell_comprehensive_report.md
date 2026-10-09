@@ -6,7 +6,6 @@
 **Cellular Composition**: 2,488 Malignant Epithelial · 1,741 Stromal (Fibroblasts, Myofibroblasts, Endothelial, Myocytes) · 1,673 Immune (CD8T, CD8Tex, CD4Tconv, Mono/Macro, Mast, Plasma)  
 **Scientific Domain**: Cancer Systems Biology, Redox Homeostasis, Single-Cell Transcriptomics, Tumour Microenvironment (TME), Metabolic Plasticity, Ferroptosis  
 **Governing Documents**: Scope of Work Phase 4 (Sections 4.1 & 4.2), Phase 4 Implementation Plan v2.0  
-**Lead Author**: Lead Bioinformatics Researcher & Cancer Systems Biology Specialist  
 **Analysis Date**: October 2026  
 **Status**: Complete, Empirically Validated, Publication-Grade (39 Figures, 62 Analytical TSV Results Tables)
 
